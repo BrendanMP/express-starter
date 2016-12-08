@@ -18,7 +18,12 @@ var todosRouter = require('./routes/todos');
 var app = express();
 
 // Connect to database
-mongoose.connect('mongodb://localhost/todos');
+if (process.env.MONGODB_URI) {
+    mongoose.connect(process.env.MONGODB_URI);
+}
+else {
+    mongoose.connect('mongodb://localhost/todos');
+}
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

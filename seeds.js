@@ -1,7 +1,12 @@
 var mongoose = require('mongoose');
 var Todo = require('./models/todo');
 
-mongoose.connect('mongodb://localhost/todos');
+if (process.env.MONGODB_URI) {
+    mongoose.connect(process.env.MONGODB_URI);
+}
+else {
+    mongoose.connect('mongodb://localhost/todo');
+}
 
 // our script will not exit until we have disconnected from the db.
 function quit() {
